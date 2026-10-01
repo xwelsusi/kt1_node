@@ -1,0 +1,73 @@
+### 1. Список всех (200)
+GET http://localhost:3000/parts
+
+### 2. Фильтр по названию (200)
+GET http://localhost:3000/parts?name=Фильтр масляный
+
+### 3. Один элемент (200)
+GET http://localhost:3000/parts/1
+
+### 4. Несуществующий id (404)
+GET http://localhost:3000/parts/999
+
+### 5. Создание (201)
+POST http://localhost:3000/parts
+Content-Type: application/json
+
+{ "name": "Тормозные колодки", "quantity": 8, "serialNumber": "EF-3003" }
+
+### 6. Неверный формат serialNumber (400)
+POST http://localhost:3000/parts
+Content-Type: application/json
+
+{ "name": "Ремень ГРМ", "quantity": 5, "serialNumber": "123-AB" }
+
+### 7. Дубликат serialNumber (400)
+POST http://localhost:3000/parts
+Content-Type: application/json
+
+{ "name": "Ремень ГРМ", "quantity": 5, "serialNumber": "AB-1001" }
+
+### 8. Нет поля name (400)
+POST http://localhost:3000/parts
+Content-Type: application/json
+
+{ "quantity": 5, "serialNumber": "GH-4004" }
+
+### 9. PUT - полная замена (200)
+PUT http://localhost:3000/parts/1
+Content-Type: application/json
+
+{ "name": "Фильтр воздушный", "quantity": 20, "serialNumber": "AB-1001" }
+
+### 10. PUT несуществующего (404)
+PUT http://localhost:3000/parts/999
+Content-Type: application/json
+
+{ "name": "Test", "quantity": 1, "serialNumber": "ZZ-0000" }
+
+### 11. PATCH - частично (200)
+PATCH http://localhost:3000/parts/2
+Content-Type: application/json
+
+{ "quantity": 100 }
+
+### 12. PATCH с дубликатом serialNumber (400)
+PATCH http://localhost:3000/parts/2
+Content-Type: application/json
+
+{ "serialNumber": "AB-1001" }
+
+### 13. DELETE (204)
+DELETE http://localhost:3000/parts/1
+
+### 14. DELETE повторно (404)
+DELETE http://localhost:3000/parts/1
+
+### 15. Несуществующий маршрут (404)
+GET http://localhost:3000/unknown
+
+### 16. Сломанный JSON (400)
+POST http://localhost:3000/parts
+Content-Type: application/json
+{ "name": "Test",
